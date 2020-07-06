@@ -1,0 +1,7 @@
+.env
+.now
+.next
+node_modules
+build
+out
+dist
