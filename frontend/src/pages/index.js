@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import { isAfter, isBefore, addDays } from 'date-fns'
 
-// import { CFW_START_DATE } from '@utils/constants'
+
 import { getSiteOptions, getEvents, getPosts, getBrands, getAds } from '@utils/sanity-api'
 import useScroll from "@utils/hooks/useScroll";
 import Layout from '@components/Layout'
@@ -116,7 +116,7 @@ const setTime = () => {
   
   // const timeZone = 'Europe/Copenhagen'
   // const userTime = utcToZonedTime(inputDate, timeZone)
-  // export const CFW_START_DATE = new Date('2020-08-10T00:00:00') // new Date('August 10, 2020 00:00:00')
+  // export const DATE = new Date('2020-08-10T00:00:00') // new Date('August 10, 2020 00:00:00')
   
   const day1 = new Date('2020-08-10T00:00:00')
   const day2 = new Date('2020-08-11T00:00:00')
