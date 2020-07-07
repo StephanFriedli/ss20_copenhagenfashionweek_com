@@ -1,0 +1,75 @@
+@import '../variables';
+@import '../fluid-font';
+
+
+.contact {
+	width: 1.4rem;
+	height: 100%;
+	position: fixed;
+	top:0;
+	left: 0;
+	border-right: 1px solid #fff;
+	background-color: #000;
+
+	.sidebar {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 1.4rem;
+		height: 100%;
+		cursor: pointer;
+
+		&:hover {
+			color: yellow;
+			background-color: blue;
+		}
+
+		.cta {
+			position: absolute;
+			top: 0.7rem;
+			right: 0.7rem;
+			width: 0;
+			height: 0;
+			user-select: none;
+
+			.link {
+				min-width: 280px;
+				transform: rotate(90deg);
+				transform-origin: 0;
+				
+				font-size: 0.8rem;
+				font-family: sans-serif;
+				color: inherit;
+
+				@media (min-width: $phablet) {
+					font-size: 0.4rem;
+				}
+			}
+		}
+	}	
+}
+
+
+
+.article {
+	position: absolute;
+	top: 0rem;
+	min-height: 101vh;
+
+	margin: 1rem 3rem 1rem 1rem;
+	max-width: 880px;
+
+	p {
+		font-size: 0.55rem;
+		line-height: 1.1em;
+		margin-bottom: 1em;
+
+		a {
+			text-decoration: none;
+			color: yellow;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}

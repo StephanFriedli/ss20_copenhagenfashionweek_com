@@ -1,0 +1,48 @@
+// @import '@styles/fluid-font';
+
+
+.hero {
+  margin-top: 80px;
+  margin-bottom: 30px;
+
+  // https://codepen.io/cyboc23/pen/NWqYyzx
+  .scrollText {
+    overflow: hidden;
+    display: flex;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    margin-bottom: 20px;
+    min-width: 100%;
+    
+    p {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      padding-left: 0.5em;
+
+      font-size: 55px;
+      font-weight: 500;
+
+      animation: animateLeft 10s linear infinite;
+
+      span {
+        font-weight: 400;
+        text-transform: uppercase;
+        padding-left: 0.5em;
+      }
+    }
+  }
+
+  .vimeo {
+    margin: 0 10px;
+  }
+}
+
+@keyframes animateLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}

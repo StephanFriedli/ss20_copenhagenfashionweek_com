@@ -1,0 +1,15 @@
+// @import '@styles/fluid-font';
+
+.post {
+  background-color: orange;
+  .card,
+  .media,
+  .vimeoContainer,
+  .active,
+  .label,
+  .time,
+  .details,
+  .cardTitle {
+    color: #000;
+  }
+}

@@ -1,0 +1,45 @@
+@import '@styles/variables';
+
+.event {
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  width: 20%;
+  padding-right: 40px;
+  margin: 20px 10px 30px;
+  width: 16.666667%; // 1/6
+
+  &.active {
+    .time {
+      text-decoration: underline;
+    }
+  }
+
+  .title,
+  .time {
+    @include heading-md;
+  }
+  .title {
+    font-weight: 500;
+  }
+  .time,
+  .label,
+  .byline {
+    margin-bottom: 1em;
+  }
+
+  .category,
+  .label,
+  .location,
+  .byline {
+    @include font-sm;
+  }
+
+  .location {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}

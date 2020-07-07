@@ -1,0 +1,58 @@
+@import '@styles/variables';
+
+.events {
+
+  .bar {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 10px 10px;
+    .eventType {
+      .link {
+        margin-right: 1em;
+      }
+    }
+    .pdfs {
+      text-align: right;
+      .link {
+        margin-left: 1em;
+      }
+    }
+
+    .link {
+      @include font-sm;
+      text-decoration: none;
+
+      .active,
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .daySelector {
+    margin: 30px 10px;
+    .link {
+      display: inline-block;
+      vertical-align: top;
+      margin-right: 20px;
+      @include heading-md;
+      text-transform: lowercase;
+      text-decoration: none;
+      span {
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+      &.active,
+      &:hover {
+        span {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+}
+
+.line {
+  @include line;
+}

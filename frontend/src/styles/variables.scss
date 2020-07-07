@@ -1,0 +1,128 @@
+// Breakpoints
+$xxl-desktop: 2440px;
+$xl-desktop: 1600px;
+$large-desktop: 1440px;
+$small-desktop: 1280px;
+$tablet: 1024px;
+$phablet: 768px;
+$mobile: 320px;
+
+$grid-columns: 12;
+$grid-margin: 1rem;
+$grid-gutter: 0.5rem;
+
+@mixin line {
+  height: 1px;
+  width: 100%;
+  background-color: #D8D8D8;
+}
+
+@mixin font-sm {
+  font-weight: 400;
+  font-size: 9px;
+  line-height: 1em;
+	text-transform: uppercase;
+
+  // @media (min-width: $phablet) {
+  //   font-size: 0.6rem;
+  // }
+}
+@mixin font-md {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1em;
+}
+@mixin heading-md {
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1em;
+	
+	&.bold {
+		font-weight: 500;	
+	}
+}
+@mixin heading-lg {
+  font-weight: 400;
+  font-size: 55px;
+  line-height: 1em;
+	
+	&.bold {
+		font-weight: 500;	
+	}
+}
+
+.heading-sm {
+	font-size: 15px
+}
+.heading-md {
+	font-size: 22px
+}
+.heading-lg {
+	font-size: 55px
+}
+
+.font-md {
+	font-size: 13px
+}
+.font-sm {
+	font-size: 9px
+}
+.font-xs {
+	font-size: 8px
+}
+.bold {
+	font-weight: 500;
+}
+
+// @mixin font-xs {
+//   font-weight: 400;
+//   font-size: 0.8rem;
+//   line-height: 1.4em;
+
+//   @media (min-width: $phablet) {
+//     font-size: 0.6rem;
+//   }
+// }
+
+// @mixin font-sm {
+//   font-weight: 400;
+//   font-size: 1rem;
+//   line-height: 1.4em;
+
+//   @media (min-width: $phablet) {
+//     font-size: 0.8rem;
+//   }
+// }
+
+// @mixin font-md {
+//     font-weight: 400;
+//     font-size: 1.4rem;
+//     line-height: 1.2em;
+
+//     // @media (min-width: $phablet) {
+//     //   font-size: 2rem;
+//     // }
+// }
+
+// @mixin font-lg {
+//     font-weight: 400;
+//     font-size: 1.8rem;
+//     line-height: 1.2em;
+
+//     @media (min-width: $phablet) {
+//       font-size: 2rem;
+//     }
+// }
+
+// @mixin font-xl {
+//     font-weight: 400;
+//     font-size: 3rem;
+//     line-height: 1em;
+
+// }
+// @mixin font-inherit {
+//     font-size: inherit;
+//     line-height: inherit;
+//     font-weight: inherit;
+//     color: inherit;
+// }

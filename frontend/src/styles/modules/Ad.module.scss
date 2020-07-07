@@ -1,0 +1,20 @@
+@import '@styles/variables';
+
+.ad {
+  background-color: orange;
+  .media {
+    .vimeoContainer {
+      background-color: orange;
+      min-height: 5vw;
+    }
+  }
+  .details {
+    .label {
+      @include font-sm;
+    }
+    .adTitle {
+      @include heading-lg;
+    }
+  }
+  
+}

@@ -1,0 +1,42 @@
+@import './variables';
+@import './fluid-font';
+
+// Linear scaling 
+// @include FluidFontEndless(320, 14, 1);
+//
+// Step scaling
+// @include FluidFontStep(320, 768, 24, 36);
+// @include FluidFontStep(769, 1024, 36, 54);
+// @include FluidFontStep(1025, 1440, 54, 64);
+// @include FluidFontEndless(1441, 54, 1);
+
+html {
+		font-size: 13px;
+		font-weight: 400;
+}
+
+body {
+	font-size: 13px;
+	font-family: 'Akzidenz-Grotesk Pro', sans-serif;
+	font-weight: 400;
+	font-display: block;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	background-color: #fff;
+	color: #000;
+}
+
+
+#page {
+	min-height: 100vh;
+}
+
+
+
+// ::selection,
+// ::-moz-selection {
+//   background:#0000ff;
+// }

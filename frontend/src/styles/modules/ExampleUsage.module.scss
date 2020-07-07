@@ -1,0 +1,18 @@
+// @import '@styles/fluid-font';
+
+.example {
+  margin-top: 4rem;
+  margin-right: 2rem;
+  margin-left: 2rem;
+
+  .media {
+    
+    margin-right: -2rem;
+    margin-left: -2rem;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
