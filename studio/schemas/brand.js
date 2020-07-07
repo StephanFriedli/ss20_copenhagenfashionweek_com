@@ -17,6 +17,11 @@ export default {
       title: 'Title',
       type: 'string'
     },
+    {
+      name: 'text',
+      title: 'Text',
+      type: 'blockContent'
+    },
 
     {
       name: 'show',

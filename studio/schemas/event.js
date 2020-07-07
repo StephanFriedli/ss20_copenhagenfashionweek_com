@@ -27,7 +27,7 @@ export default {
       title: 'Category',
       type: 'string',
       options: {
-        list: ['Show', 'Event'],
+        list: ['Official', 'Event'],
         layout: 'radio'
       },
     },
