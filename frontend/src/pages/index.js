@@ -89,9 +89,6 @@ const Index = ({ data, preview }) => {
           {/* Title + Play Vimeo (video or livestream) */}
           <Hero data={data.hero} time={time} />
 
-          {/* Show next event */}
-          <NextUp data={data} />
-
           {/* Show todays events. Filter 'official' & 'other'. Download pdf schedule etc. */}
           <Events data={data.events} time={time} />
 
@@ -101,6 +98,9 @@ const Index = ({ data, preview }) => {
           {/* Partners */}
           <Footer data={data.footer} />          
 
+          {/* Show next event */}
+          <NextUp data={data} />
+          
         </main>
         {/* <PostModal onToggleModal={toggleModal} /> */}
       </div>

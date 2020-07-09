@@ -1,15 +1,84 @@
-// @import '@styles/fluid-font';
+@import '@styles/variables';
 
 .post {
-  background-color: orange;
-  .card,
-  .media,
-  .vimeoContainer,
-  .active,
-  .label,
-  .time,
-  .details,
-  .cardTitle {
-    color: #000;
+  text-decoration: none;
+
+  &:hover {
+    .cardTitle {
+      text-decoration: underline;
+    }
   }
+
+  .media {
+    position: relative;
+    background-color: lightgrey;
+
+    .imageContainer {
+      img {
+        width: 100%;
+        height: auto;
+      }
+      .dark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+    }
+    
+    // .vimeoContainer { 
+    // }
+
+    .countdown {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+
+      .label {
+        @include font-sm;
+        margin-bottom: 20px;
+        color: #fff;
+      }
+
+      .time {
+        @include heading-md;
+        font-weight: 500;
+        color: #fff;
+      }
+    }
+  }
+
+  .details {
+    width: 100%;
+    .category {
+      text-align: center;
+      @include font-sm;
+      margin: 10px 0;
+    }
+    .cardTitle {
+      text-align: center;
+      @include heading-md;
+      font-weight: 500;
+      margin: 10px 0;
+    }
+  }
+
+  
+  // .card,
+  // .media,
+  // .vimeoContainer,
+  // .active,
+  // .label,
+  // .time, {
+  //   color: #000;
+  // }
 }

@@ -1,6 +1,6 @@
 import styles from '@styles/modules/Events.module.scss';
 
-import { parseISO, getDay, getMonth, getDate, format, compareAsc } from 'date-fns'
+import { parseISO, format, compareAsc } from 'date-fns'
 
 import Event from '@components/Event'
 

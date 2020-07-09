@@ -41,6 +41,17 @@ export default {
     },
     
     {
+      name: 'brand',
+      title: 'Linked Brand',
+      type: 'array',
+      of: [{
+        type: 'reference',
+        to: [{ type: 'brand' }]
+      }],
+      length: 1,
+    },
+    
+    {
       name: 'thumbnail',
       title: 'Thumbnail',
       type: 'array',
@@ -51,6 +62,16 @@ export default {
           title: 'Image',
           type: 'image',
           options: { hotspot: true },
+          fields: [
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'Caption',
+              options: {
+                isHighlighted: true // <-- make this field easily accessible
+              }
+            }
+          ]
         },
         // {
         //   name: 'video',
@@ -86,7 +107,20 @@ export default {
           name: 'image',
           title: 'Image',
           type: 'image',
-          options: { hotspot: true },
+          options: { 
+            hotspot: true,
+            metadata: ['dimensions']
+          },
+          fields: [
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'Caption',
+              options: {
+                isHighlighted: true // <-- make this field easily accessible
+              }
+            }
+          ]
         },
         // {
         //   name: 'video',

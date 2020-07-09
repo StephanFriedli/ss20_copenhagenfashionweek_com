@@ -77,8 +77,24 @@ export async function getPosts(preview, time) {
     title,
     category,
     releaseDate,
+    'brand': brand[0]->{title},
     thumbnail,
     media,
+    "test": media[0]{
+      'image': media[0].image,
+      'photo': media[0].image.asset->{
+        url,
+        metadata {
+          dimensions
+        }
+      }
+    },
+    "mainImage": media[]{
+      ...,
+      metadata {
+        dimensions
+      }
+    },
     text,
     link
   `
@@ -93,9 +109,10 @@ export async function getPosts(preview, time) {
 
   const results = await getClient(preview)
     // .fetch(`* [_type == "post" && startTime >= ${time.startDate} && startTime <= time.endDate]{
-    // .fetch(`* [_type == "post"]{
     
-    .fetch(`* [_type == "post" && releaseDate >= '2020-08-10' && releaseDate <= '2020-08-13'] | order(releaseDate desc){
+    // .fetch(`* [_type == "post" && releaseDate >= '2020-08-10' && releaseDate <= '2020-08-13'] | order(releaseDate desc){
+    // && defined(mainImage)
+    .fetch(`* [_type == "post"][0..199] | order(_createdAt desc) {
       ${post}
     }`)
   return results

@@ -2,9 +2,23 @@
 
 .brands {
 
-  .label {
-    @include font-sm;
-    margin: 10px 10px;
+  .bar {
+    display: flex;
+    justify-content: space-between;
+
+    .label {
+      @include font-sm;
+      margin: 10px 10px;
+    }
+    .close {
+      @include font-sm;
+      margin: 10px 10px;
+      text-decoration: none;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
   
   .line {
@@ -20,7 +34,7 @@
       vertical-align: top;
       margin: 0px 10px 10px;
 
-      @include heading-md;
+      @include heading-sm;
       font-weight: 500;
       text-decoration: none;
 
@@ -29,5 +43,120 @@
         text-decoration: underline;
       }
     }
+  }
+}
+
+
+// ---------------------------------------------------------------------------------------------------
+
+.brand {
+  margin-bottom: 60px;
+  
+  .introduction {
+    width: 50%;
+    max-width: 660px;
+    margin: 120px auto 120px;
+
+    .title {
+      @include heading-lg;
+      font-weight: 500;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    p {
+      @include font-md;
+      text-align: center;
+    }
+
+  }
+
+  .details {
+    margin: 0 10px;
+    .row {
+      display: inline-block;
+      vertical-align: top;
+
+      &.row1 {
+        width: 20%;
+      }
+      &.row2 {
+        width: 30%;
+      }
+      &.row3 {
+        width: 30%;
+      }
+      &.row4 {
+        width: 20%;
+      }
+
+      .label {
+        @include font-sm;
+      }
+
+      .event {
+        .date {
+          @include heading-md;
+          font-weight: 500;
+        }
+        .time {
+          @include heading-md;
+          font-weight: 500;
+        }
+        .address {
+          .link {
+            @include font-sm;
+            text-decoration: none;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+      .downloads {
+        .item {
+          .link {
+            @include heading-sm;
+            text-decoration: none;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+      .contact {
+        .item {
+          .label {
+            @include font-sm;
+          }
+          .name {
+            @include heading-sm;
+            text-transform: uppercase;
+            font-weight: 500;
+          }
+          .link {
+            @include font-md;
+          }
+        }
+      }
+
+      .social {
+        .item {
+          .link {
+            @include font-md;
+            font-weight: 500;
+            text-decoration: none;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .line {
+    @include line;
+    margin-top: 10px;
+    margin-bottom: 20px;
   }
 }
