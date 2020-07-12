@@ -8,7 +8,7 @@ import Brands from '@components/Brands'
 import Post from '@components/Post'
 import Ad from '@components/Ad'
 
-const PostGrid = ({ preview, brands, posts, ads }) => {
+const PostGrid = ({ preview, brands, posts, ads, openPostModal, time }) => {
   
   const randomAds = ads // todo - randomize!
   const cardNode = useRef([])
@@ -46,8 +46,7 @@ const PostGrid = ({ preview, brands, posts, ads }) => {
     let filteredPosts = []
     if (brandName != '') {
       filteredPosts = posts.map((card, index) => {
-        console.log('brand: ', card.brand.title, brandName);
-        
+        // console.log('brand: ', card.brand.title, brandName);
         if (card.brand.title === brandName) {
           return card
         }
@@ -55,7 +54,7 @@ const PostGrid = ({ preview, brands, posts, ads }) => {
       
     } else if (categoryName != '') {
       filteredPosts = posts.map((card, index) => {
-        console.log('category: ', card.category, categoryName);
+        // console.log('category: ', card.category, categoryName);
         if (card.category === categoryName) {
           return card
         }
@@ -64,7 +63,7 @@ const PostGrid = ({ preview, brands, posts, ads }) => {
     filteredPosts = filteredPosts.filter(function (el) {
       return el != null;
     });
-    console.log('filteredPosts: ', filteredPosts);
+    // console.log('filteredPosts: ', filteredPosts);
     
 
     // Merge Posts & Ads
@@ -99,9 +98,13 @@ const PostGrid = ({ preview, brands, posts, ads }) => {
     setBrandName('')
   }
 
-  
+  const onOpenPostModal = (postData) => {
+    console.log('open modal ', postData);
+    openPostModal(postData)
+  }
+
   const resizeGrid = () => {
-    console.log('useRef: ', cardNode.current.length, cards.length);
+    // console.log('useRef: ', cardNode.current.length, cards.length);
     for (let i = 0; i < cards.length; i++) {
     // for (let i = 0; i < cardNode.current.length; i++) {
       resizeGridItem(i)
@@ -128,7 +131,6 @@ const PostGrid = ({ preview, brands, posts, ads }) => {
 
   return (
     <div className={styles.grid}>
-      
       <div className={styles.category}>
         <a href="#" onClick={(event) => onClickCategory(event, 'Show')} className={(categoryName == 'Show') ? styles.active : ''}>Show</a>
         <a href="#" onClick={(event) => onClickCategory(event, 'Event')} className={(categoryName == 'Event') ? styles.active : ''}>Event</a>
@@ -153,7 +155,7 @@ const PostGrid = ({ preview, brands, posts, ads }) => {
             return (
               <div ref={el => cardNode.current[index] = el} key={index} >
                 <div ref={el => cardInnerNode.current[index] = el}>
-                  <Post data={item} />
+                  <Post data={item} openPostModal={onOpenPostModal} />
                 </div>
               </div>
             )

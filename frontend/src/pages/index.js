@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React, { useState, useRef, useEffect } from 'react';
 
-import { isAfter, isBefore, addDays } from 'date-fns'
+import { isAfter, isBefore, addDays, parseISO } from 'date-fns'
 
 
 import { getSiteOptions, getEvents, getPosts, getBrands, getAds } from '@utils/sanity-api'
@@ -19,30 +19,47 @@ import Footer from '@components/Footer'
 
 const Index = ({ data, preview }) => {
 
-  // console.log('hero: ', data.hero);
-  // console.log('event: ', data.events);
-  // console.log('posts: ', data.posts);
-  // console.log('brands: ', data.brands);
 
-
+  const [userTime, setUserTime] = useState(new Date('2020-08-10T00:00:00'))
+  const [time, setTime] = useState('')
   const mainNode = useRef(null)
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [scroll, setScroll] = useState({ x: 0, y: 0 })
   const [modalScrollY, setModalScrollY] = useState(0)
+  // const time = {}
 
-  const time = setTime()
+  // Mounted
+  useEffect(() => {
+    console.log('mounted');
+    calcTime(userTime)
+  }, []);
 
-  // // Mounted
-  // useEffect(() => {
-  //   setTime()
-  // }, []);
+  useEffect(() => {
+    console.log('upd userTime');
+    calcTime(userTime)
+  }, [userTime]);
 
   // // Listen to scroll event
   // const onScroll = (scroll) => {
-  //   setScroll(scroll)
+  //   // setScroll(scroll)
   // }
   // useScroll(onScroll)
 
+  const onHandleInputChange = (event) => {
+    // 2020-08-11T00:00:00
+    let userTime = event.target.value
+    setUserTime(parseISO(userTime))
+  }
+
+  const onHandleInputSubmit = (event) => {
+    event.preventDefault()
+  }
+  
+
+  const onOpenPostModal = (postData) => {
+    console.log('Open post modal: ', postData);
+    toggleModal()
+  }
 
   const toggleModal = () => {
     const isOpen = !modalIsOpen
@@ -71,6 +88,58 @@ const Index = ({ data, preview }) => {
     setModalIsOpen(isOpen)
   }
 
+
+  const calcTime = () => {
+
+    // const timeZone = 'Europe/Copenhagen'
+    // const userTime = utcToZonedTime(inputDate, timeZone)
+    // export const DATE = new Date('2020-08-10T00:00:00') // new Date('August 10, 2020 00:00:00')
+
+    // TODO  - come from SANITY!
+    const day1 = new Date('2020-08-10T00:00:00')
+    const day2 = new Date('2020-08-11T00:00:00')
+    const day3 = new Date('2020-08-12T00:00:00')
+
+    let timeObj = {}
+    timeObj.userTime = userTime ? userTime : new Date(); //new Date('2020-08-11T23:59:00') // local machine time
+
+    
+    if (isBefore(timeObj.userTime, day1)) {
+      console.log('It hasnt started YET!')
+      timeObj.state = 'before'
+      timeObj.date = day1 // time everything before this date
+      timeObj.day = -99
+    } else if (isBefore(timeObj.userTime, day2)) {
+      console.log('Its day 1')
+      timeObj.state = 'during'
+      timeObj.startDate = day1
+      timeObj.endDate = day2
+      timeObj.day = 1
+    } else if (isBefore(timeObj.userTime, day3)) {
+      console.log('Its day 2')
+      timeObj.state = 'during'
+      timeObj.startDate = day2
+      timeObj.endDate = day3
+      timeObj.day = 2
+    } else if (isBefore(timeObj.userTime, addDays(day3, 1))) {
+      console.log('Its day3')
+      timeObj.state = 'during'
+      timeObj.startDate = day3
+      timeObj.endDate = addDays(day3, 1)
+      timeObj.day = 3
+
+    } else if (isAfter(timeObj.userTime, day3)) {
+      console.log('Past the festival');
+      timeObj.state = 'after'
+      timeObj.date = day3 // query everything before this date
+      timeObj.day = 99
+    } else {
+      console.log('lost in time!');
+    }
+    
+    setTime(timeObj)
+  }
+
   return (
     <Layout preview={preview}>
       <Head>
@@ -86,87 +155,66 @@ const Index = ({ data, preview }) => {
 
           <Header />
 
-          {/* Title + Play Vimeo (video or livestream) */}
+        
+          {/* Title + Play Vimeo (video or livestream)  */}
           <Hero data={data.hero} time={time} />
 
           {/* Show todays events. Filter 'official' & 'other'. Download pdf schedule etc. */}
           <Events data={data.events} time={time} />
 
           {/* Show todays events. Filter 'official' & 'other'. Download pdf schedule etc. */}
-          <PostGrid brands={data.brands} posts={data.posts} ads={data.ads} />
+          <PostGrid 
+            time={time}
+            brands={data.brands} 
+            posts={data.posts} 
+            ads={data.ads} 
+            openPostModal={onOpenPostModal} 
+          />
 
           {/* Partners */}
           <Footer data={data.footer} />          
 
           {/* Show next event */}
           <NextUp data={data} />
-          
+
+
         </main>
-        {/* <PostModal onToggleModal={toggleModal} /> */}
+        <PostModal onToggleModal={toggleModal} />
+        
+        <div className="timeInput">
+          <form onSubmit={onHandleInputSubmit}>
+            <input type="text" value={userTime} value={userTime} onChange={onHandleInputChange} />
+            <input type="submit" value="Submit" />
+          </form>
+          <p>2020-08-09T00:00:00</p>
+          <p>2020-08-10T00:00:00</p>
+          <p>2020-08-11T00:00:00</p>
+          <p>2020-08-12T00:00:00</p>
+        </div>
+
       </div>
 
-
+      <style jsx>{`
+        .timeInput {
+          position: fixed;
+          top: 10px;
+          right: 10px;
+          background: #555;
+          padding: 10px;
+        }
+      `}</style>
     </Layout>
   )
 }
 export default Index;
 
 
-const setTime = () => {
-  
-  // const timeZone = 'Europe/Copenhagen'
-  // const userTime = utcToZonedTime(inputDate, timeZone)
-  // export const DATE = new Date('2020-08-10T00:00:00') // new Date('August 10, 2020 00:00:00')
-  
-  const day1 = new Date('2020-08-10T00:00:00')
-  const day2 = new Date('2020-08-11T00:00:00')
-  const day3 = new Date('2020-08-12T00:00:00')
-
-  const time = {}
-  time.userTime = new Date() //new Date('2020-08-11T23:59:00') // local machine time
-
-  if (isBefore(time.userTime, day1)) {
-    console.log('It hasnt started YET!')
-    time.state = 'before'
-    time.date = day1 // time everything before this date
-    time.day = -99
-  } else if (isAfter(time.userTime, day1) && isBefore(time.userTime, day2)) {
-    console.log('Its day 1')
-    time.state = 'during'
-    time.startDate = day1
-    time.endDate = day2
-    time.day = 1
-  } else if (isAfter(time.userTime, day2) && isBefore(time.userTime, day3)) {
-    console.log('Its day 2')
-    time.state = 'during'
-    time.startDate = day2
-    time.endDate = day3
-    time.day = 2
-  } else if (isAfter(time.userTime, day3) && isBefore(time.userTime, addDays(day3, 1))) {
-    console.log('Its day3')
-    time.state = 'during'
-    time.startDate = day3
-    time.endDate = addDays(day3, 1)
-    time.day = 3
-
-  } else if (isAfter(time.userTime, day3)) {
-    console.log('Past the festival');
-    time.state = 'after'
-    time.date = day3 // query everything before this date
-    time.day = 99
-  } else {
-    console.log('lost in time!');
-  }
-
-  return time
-}
 
 export async function getStaticProps({ preview = false, previewData }) {
-  let time = setTime()
   
   const siteData = await getSiteOptions(previewData)
   const eventData = await getEvents(previewData)
-  const postData = await getPosts(previewData, time)
+  const postData = await getPosts(previewData)
   const brandData = await getBrands(previewData)
   const adData = await getAds(previewData)
   
@@ -174,6 +222,7 @@ export async function getStaticProps({ preview = false, previewData }) {
   const data = {
     seo: siteData,
     hero: {
+      days: siteData.eventDays,
       before: siteData.before,
       day1: siteData.day1,
       day2: siteData.day2,

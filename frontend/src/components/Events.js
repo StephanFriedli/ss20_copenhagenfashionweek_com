@@ -1,21 +1,26 @@
+import React, { useState } from 'react';
 import styles from '@styles/modules/Events.module.scss';
 
-import { parseISO, format, compareAsc } from 'date-fns'
+import { isBefore, addDays, isAfter, parseISO, format, compareAsc, isSameDay, isSameHour } from 'date-fns'
 
 import Event from '@components/Event'
 
 const Events = ({ data, time }) => {
   // console.log('EVENT: ', data)
-  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-  const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+  // const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  // const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
 
-  const onClickEventDay = () => {
-    console.log('onClickEventDay')
+  const [category, setCategory] = useState('Official')
+  const [internalTime, setInternalTime] = useState('');
+
+  const onClickEventDay = (event, day) => {
+    event.preventDefault()
+    console.log('onClickEventDay ', day)
+    setInternalTime(day)
   }
 
   return (
-    <header className={styles.events}>
-      
+    <div className={styles.events}>
       <div className={styles.bar}>
         <div className={styles.eventType}>
           <a href="#" className={styles.link}>Official Schedule</a>
@@ -42,15 +47,16 @@ const Events = ({ data, time }) => {
           const weekday = format(parseISO(day), 'EEEE') //=> 'Mon'
           
           // console.log('compare date: ', time.state, compareAsc(time.date, parseISO(day)), day)
-          let isActive = (time.state === 'during' && compareAsc(time.date, parseISO(day)) === 0) ? true : false
-          // let isActive = (compareAsc(time.date, parseISO(day)) === 0) ? true : false
+          let startDate = (time.state === 'during') ? time.startDate : time.date
+          let compareTime = (internalTime == '') ? startDate : internalTime
+          let isActive = isSameDay(compareTime, parseISO(day))
 
           return (
             <a
               key={index}
               href="#"
               className={`${styles.link} ${isActive ? styles.active : ''}`}
-              onClick={onClickEventDay}
+              onClick={event => onClickEventDay(event, day)}
             >
               {month} {date}<br></br>
               <span>{weekday}</span>
@@ -62,12 +68,28 @@ const Events = ({ data, time }) => {
       <div className={styles.line}></div>
       
       <div className={styles.events}>
-        {data.events.map((event, index) => {
-          return <Event data={event} key={index} />
-        })}
-      </div>
 
-    </header>
+        {time &&
+
+          data.events.filter(function (event) {
+            // return item.state == 'New York';
+            let startDate = (time.state === 'during') ? time.startDate : time.date
+            let compareTime = (internalTime == '' ) ? startDate : internalTime
+            
+            if (isSameDay(new Date(compareTime), new Date(event.startTime)) ) {
+              return event
+            }
+          }).map(function (event) {
+            // return { id, name, city };
+            let isActive = isSameHour(parseISO(time.userTime), parseISO(event.startTime))
+            // console.log(isActive, time.userTime, event.startTime);
+            console.log('isActive: ', isActive)
+
+            return <Event data={event} key={event.startTime} isActive={isActive} />
+          })
+        }
+      </div>
+    </div>
   )
 }
 export default Events

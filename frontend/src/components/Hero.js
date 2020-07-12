@@ -1,29 +1,87 @@
-
-import React, { useState, useRef, useEffect } from 'react';
+import React, { Component } from 'react';
 import Player from '@vimeo/player';
-
+// import { isAfter, isBefore, addDays } from 'date-fns'
 import styles from '@styles/modules/Hero.module.scss';
 
 
+class Hero extends Component {
 
-const Hero = ({ data, wop }) => {
+  constructor(props) {
+    super(props)
 
-  const vimeoNode = useRef(null)
-
-  // Mounted
-  useEffect(() => {
-    console.log('HERO data: ', data);
-    initVimeo()
-  }, []);
-
-  const onVimeoLoaded = () => {
-    console.log('video loaded!!!');
+    this.state = {
+      time: props.time,
+      vimeoUrl: '',
+      headlineLowercase: '',
+      headlineUppercase: ''
+    }
+    
+    this.vimeoNode = React.createRef()
+    
   }
 
-  const initVimeo = () => {
+  static getDerivedStateFromProps(nextProps, prevState) {
+
+    let url = ''
+    let lowercase = ''
+    let uppercase = ''
+
+    if (nextProps.time.day < 1) {
+      url = nextProps.data.before.vimeo
+      uppercase = nextProps.data.before.titleUppercase
+      lowercase = nextProps.data.before.titleLowercase
+    } else if (nextProps.time.day == 1) {
+      url = nextProps.data.day1.vimeo
+      uppercase = nextProps.data.day1.titleUppercase
+      lowercase = nextProps.data.day1.titleLowercase
+    } else if (nextProps.time.day == 2) {
+      url = nextProps.data.day2.vimeo
+      uppercase = nextProps.data.day2.titleUppercase
+      lowercase = nextProps.data.day2.titleLowercase
+    } else if (nextProps.time.day == 3) {
+      url = nextProps.data.day3.vimeo
+      uppercase = nextProps.data.day3.titleUppercase
+      lowercase = nextProps.data.day3.titleLowercase
+    } else if (nextProps.time.day > 10) {
+      url = nextProps.data.after.vimeo
+      uppercase = nextProps.data.after.titleUppercase
+      lowercase = nextProps.data.after.titleLowercase
+    }
+
+    // Return new state
+    // https://larry-price.com/blog/2018/06/27/how-to-use-getderivedstatefromprops-in-react-16-dot-3-plus/
+    return {
+      time: nextProps.time,
+      vimeoUrl: url,
+      headlineLowercase: lowercase,
+      headlineUppercase: uppercase
+    }
+  }
+
+  
+  componentDidUpdate(prevProps) {
+    
+    if (this.vimeoPlayer === undefined && this.state.vimeoUrl !== undefined) {
+      this.initVimeo()
+    } else if (this.vimeoPlayer) {
+      this.vimeoPlayer.loadVideo(this.state.vimeoUrl).then(function (id) {
+        // the video successfully loaded
+        // console.log('video loaded!! ', id);
+      }).catch(function (error) {
+        console.log('error: ', error);
+      });
+    }
+    
+  }
+
+  initVimeo() {
+    if (this.state.vimeoUrl == '' && this.state.vimeoUrl == undefined) {
+      return
+    }
+    console.log('init vimeo: ', this.state.vimeoUrl);
 
     var options = {
-      url: data.before.vimeo,
+      url: this.state.vimeoUrl,
       // id: this.vimeoId,
       // width: 1920,
       // height: 1080,
@@ -45,22 +103,28 @@ const Hero = ({ data, wop }) => {
 
     // Load Player
     // https://www.npmjs.com/package/@vimeo/player
-    const vimeoPlayer = new Player(vimeoNode.current, options);
-    vimeoPlayer.on('loaded', onVimeoLoaded);
+    console.log('vimeoNode: ', this.vimeoNode.current);
+    
+    this.vimeoPlayer = new Player(this.vimeoNode.current, options);
+    // this.vimeoPlayer.on('loaded', this.onVimeoLoaded);
   }
 
-  return (
-    <header className={styles.hero}>
-      <h1></h1>
+  // onVimeoLoaded() {
+  //   console.log('video loaded!!! ', this.vimeoPlayer);
+  // }
 
-      <div className={styles.scrollText}>
-        <p>{data.before.titleLowercase} <span>{data.before.titleUppercase}</span></p>
-        <p>{data.before.titleLowercase} <span>{data.before.titleUppercase}</span></p>
-        <p>{data.before.titleLowercase} <span>{data.before.titleUppercase}</span></p>
-      </div>
+  render() {
 
-      <div className={styles.vimeo} ref={vimeoNode}></div>
+    return (
+      <header className={styles.hero}>
+        <div className={styles.scrollText}>
+          <p>{this.state.headlineLowercase} <span>{this.state.headlineUppercase}</span></p>
+          <p>{this.state.headlineLowercase} <span>{this.state.headlineUppercase}</span></p>
+          <p>{this.state.headlineLowercase} <span>{this.state.headlineUppercase}</span></p>
+        </div>
+        <div className={styles.vimeo} ref={this.vimeoNode}></div>
     </header>
-  )
+    )
+  }
 }
 export default Hero

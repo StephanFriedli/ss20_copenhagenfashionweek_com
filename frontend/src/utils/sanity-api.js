@@ -70,7 +70,7 @@ export async function getEvents(preview) {
   return results
 }
 
-export async function getPosts(preview, time) {
+export async function getPosts(preview) {
 
   const post = `
     _id,
@@ -99,13 +99,10 @@ export async function getPosts(preview, time) {
     link
   `
       
-  if (time.state = 'before') {
-
-  } else if (time.state = 'after') {
-
-  } else {
-
-  }
+  // if (time.state = 'before') {
+  // } else if (time.state = 'after') {
+  // } else {
+  // }
 
   const results = await getClient(preview)
     // .fetch(`* [_type == "post" && startTime >= ${time.startDate} && startTime <= time.endDate]{

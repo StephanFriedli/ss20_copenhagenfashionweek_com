@@ -7,7 +7,7 @@ import Player from '@vimeo/player'
 
 import styles from '@styles/modules/Post.module.scss'
 
-const Post = ({ data }) => {
+const Post = ({ data, openPostModal}) => {
 
   const time = '03d 08h 34m'
   // const isActive = false
@@ -101,9 +101,17 @@ const Post = ({ data }) => {
     console.log('post video loaded!!!');
   }
 
+  const onOpenPostModal = (event) => {
+
+    event.preventDefault()
+    console.log('onOpenPostModal ', event );
+    openPostModal(data)
+    
+  }
+
   return (
   
-    <a href="#" className={styles.post}>
+    <a href="#" className={styles.post} onClick={onOpenPostModal}>
       <div className={styles.media}>
         
         {(mediaType === 'image') &&
