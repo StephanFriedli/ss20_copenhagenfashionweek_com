@@ -49,7 +49,8 @@ const Events = ({ data, time }) => {
           // console.log('compare date: ', time.state, compareAsc(time.date, parseISO(day)), day)
           let startDate = (time.state === 'during') ? time.startDate : time.date
           let compareTime = (internalTime == '') ? startDate : internalTime
-          let isActive = isSameDay(compareTime, parseISO(day))
+          let isActive = isSameDay(new Date(compareTime), new Date(day))
+          
 
           return (
             <a
@@ -70,9 +71,7 @@ const Events = ({ data, time }) => {
       <div className={styles.events}>
 
         {time &&
-
           data.events.filter(function (event) {
-            // return item.state == 'New York';
             let startDate = (time.state === 'during') ? time.startDate : time.date
             let compareTime = (internalTime == '' ) ? startDate : internalTime
             
@@ -80,10 +79,8 @@ const Events = ({ data, time }) => {
               return event
             }
           }).map(function (event) {
-            // return { id, name, city };
-            let isActive = isSameHour(parseISO(time.userTime), parseISO(event.startTime))
-            // console.log(isActive, time.userTime, event.startTime);
-            console.log('isActive: ', isActive)
+            let isActive = isSameHour(new Date(time.userTime), new Date(event.startTime))
+            // console.log('isSameHour: ', isActive, new Date(time.userTime), new Date(event.startTime))
 
             return <Event data={event} key={event.startTime} isActive={isActive} />
           })

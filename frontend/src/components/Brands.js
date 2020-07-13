@@ -20,15 +20,15 @@ const Brands = ({ data, changeBrand, closeBrand }) => {
     closeBrand()
   }
 
-  const serializers = {
-    types: {
-      code: props => (
-        <pre data-language={props.node.language}>
-          <code>{props.node.code}</code>
-        </pre>
-      )
-    }
-  }
+  // const serializers = {
+  //   types: {
+  //     code: props => (
+  //       <pre data-language={props.node.language}>
+  //         <code>{props.node.code}</code>
+  //       </pre>
+  //     )
+  //   }
+  // }
 
   return (
     <>
@@ -66,7 +66,7 @@ const Brands = ({ data, changeBrand, closeBrand }) => {
           <h2 className={styles.title}>
             {selectedBrand.title.toUpperCase()}
           </h2>
-          <BlockContent blocks={selectedBrand.text} serializers={serializers} />,
+          <BlockContent blocks={selectedBrand.text} /> {/* serializers={serializers}  */}
         </div>
         
         

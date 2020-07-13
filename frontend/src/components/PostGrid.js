@@ -99,7 +99,6 @@ const PostGrid = ({ preview, brands, posts, ads, openPostModal, time }) => {
   }
 
   const onOpenPostModal = (postData) => {
-    console.log('open modal ', postData);
     openPostModal(postData)
   }
 

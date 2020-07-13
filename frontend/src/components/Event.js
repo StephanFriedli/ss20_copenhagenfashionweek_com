@@ -2,13 +2,13 @@ import { parseISO, format } from 'date-fns'
 
 import styles from '@styles/modules/Event.module.scss'
 
-const Event = ({ data }) => {
+const Event = ({ data, isActive }) => {
   
-  const startHour = format(parseISO(data.startTime), 'hh:mm')
-  const endHour = format(parseISO(data.endTime), 'hh:mm')
+  const startHour = format(parseISO(data.startTime), 'HH:mm')
+  const endHour = format(parseISO(data.endTime), 'HH:mm')
 
   return (
-    <div className={styles.event}>
+    <div className={`${styles.event} ${isActive ? styles.active : ''}`}>
       <h2 className={styles.title}>{data.title}</h2>
       
       {(data.startTime && data.endTime) &&

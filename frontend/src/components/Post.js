@@ -102,11 +102,8 @@ const Post = ({ data, openPostModal}) => {
   }
 
   const onOpenPostModal = (event) => {
-
     event.preventDefault()
-    console.log('onOpenPostModal ', event );
     openPostModal(data)
-    
   }
 
   return (

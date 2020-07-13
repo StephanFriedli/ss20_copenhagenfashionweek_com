@@ -1,74 +1,71 @@
-@import '../variables';
-@import '../fluid-font';
+@import '@styles/variables';
 
-
-.contact {
-	width: 1.4rem;
-	height: 100%;
-	position: fixed;
-	top:0;
-	left: 0;
-	border-right: 1px solid #fff;
-	background-color: #000;
-
-	.sidebar {
-		position: absolute;
+.modal {
+	display: none;
+	
+	.background {
+		position: fixed;
 		top: 0;
+		left: 0;
 		right: 0;
-		width: 1.4rem;
-		height: 100%;
-		cursor: pointer;
+		bottom: 0;
+		background-color: rgba(34, 34, 34, 0.7)
+	}
 
-		&:hover {
-			color: yellow;
-			background-color: blue;
+	.content {
+		position: absolute;
+		top: 60px;
+		left: 40px;
+		width: 70%;
+
+		padding: 80px;
+		background-color: #fff;
+
+
+		.close {
+			@include font-sm;
+			padding: 10px 0;
+			cursor: pointer;
+			display: inline-block;
 		}
 
-		.cta {
-			position: absolute;
-			top: 0.7rem;
-			right: 0.7rem;
-			width: 0;
-			height: 0;
-			user-select: none;
+		.article {
+			// min-height: 101vh;
+			// margin: 1rem 3rem 1rem 1rem;
+			max-width: 660px;
+			text-align: center;
+			margin: 0 auto;
+
+			.date {
+				@include font-sm;
+				margin-bottom: 20px;
+			}
+
+			.title {
+				@include heading-md;
+				text-transform: uppercase;
+				font-weight: 500;
+				margin-bottom: 20px;
+			}
 
 			.link {
-				min-width: 280px;
-				transform: rotate(90deg);
-				transform-origin: 0;
-				
-				font-size: 0.8rem;
-				font-family: sans-serif;
-				color: inherit;
-
-				@media (min-width: $phablet) {
-					font-size: 0.4rem;
-				}
+				@include heading-md;
+				text-transform: uppercase;
+				font-weight: 500;
 			}
-		}
-	}	
-}
 
+			.p {
+				@include font-md;
+				line-height: 1.1em;
+				margin-bottom: 1em;
 
-
-.article {
-	position: absolute;
-	top: 0rem;
-	min-height: 101vh;
-
-	margin: 1rem 3rem 1rem 1rem;
-	max-width: 880px;
-
-	p {
-		font-size: 0.55rem;
-		line-height: 1.1em;
-		margin-bottom: 1em;
-
-		a {
-			text-decoration: none;
-			color: yellow;
-			&:hover {
-				text-decoration: underline;
+				a {
+					text-decoration: none;
+					color: yellow;
+					&:hover {
+						text-decoration: underline;
+					}
+				}
 			}
 		}
 	}

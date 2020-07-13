@@ -20,28 +20,29 @@ import Footer from '@components/Footer'
 const Index = ({ data, preview }) => {
 
 
-  const [userTime, setUserTime] = useState(new Date('2020-08-10T00:00:00'))
+  const [userTime, setUserTime] = useState(new Date('2020-08-10T12:30:00'))
   const [time, setTime] = useState('')
   const mainNode = useRef(null)
   const [modalIsOpen, setModalIsOpen] = useState(false)
-  const [scroll, setScroll] = useState({ x: 0, y: 0 })
+  // const [scroll, setScroll] = useState({ x: 0, y: 0 })
   const [modalScrollY, setModalScrollY] = useState(0)
+  const [postData, setPostData] = useState()
   // const time = {}
 
   // Mounted
   useEffect(() => {
-    console.log('mounted');
     calcTime(userTime)
   }, []);
 
   useEffect(() => {
-    console.log('upd userTime');
     calcTime(userTime)
   }, [userTime]);
 
   // // Listen to scroll event
-  // const onScroll = (scroll) => {
+  // const onScroll = (_scroll) => {
   //   // setScroll(scroll)
+  //   scroll.y = _scroll.y
+  //   console.log('scroll: ', scroll.y);
   // }
   // useScroll(onScroll)
 
@@ -57,35 +58,42 @@ const Index = ({ data, preview }) => {
   
 
   const onOpenPostModal = (postData) => {
-    console.log('Open post modal: ', postData);
-    toggleModal()
+    console.log('open modal ', postData);
+    setPostData(postData) // triggers PostModal
+    openModal()
   }
 
   const toggleModal = () => {
     const isOpen = !modalIsOpen
-
-    // OPEN
+    
     if (isOpen) {
-      mainNode.current.style.position = 'fixed'
-      // TODO
-      mainNode.current.style.width = 'calc(100vw)' // 16 == scrollbar 
-      mainNode.current.style.top = -scroll.y + 'px'
-
-      window.scrollTo(0, 0)
-      setModalScrollY(scroll.y)
+      openModal()
+    } else {
+      closeModal()
     }
-    // CLOSE
-    else {
-      console.log('modalScrollY: ', modalScrollY);
+  }
 
-      mainNode.current.style.position = ''
-      mainNode.current.style.width = ''
-      mainNode.current.style.top = ''
+  const openModal = () => {
+    const scroll = { x: window.scrollX, y: window.scrollY }
 
-      window.scrollTo(0, modalScrollY)
-    }
+    console.log('openModal: ', scroll.y);
+    mainNode.current.style.position = 'fixed'
+    mainNode.current.style.width = 'calc(100vw)' // 16 == scrollbar 
+    mainNode.current.style.top = -scroll.y + 'px'
 
-    setModalIsOpen(isOpen)
+    setModalScrollY(scroll.y)
+    setModalIsOpen(true)
+  }
+
+  const closeModal = () => {
+    console.log('closeModal: ', modalScrollY);
+
+    mainNode.current.style.position = ''
+    mainNode.current.style.width = ''
+    mainNode.current.style.top = ''
+
+    window.scrollTo(0, modalScrollY)
+    setModalIsOpen(false)
   }
 
 
@@ -102,7 +110,6 @@ const Index = ({ data, preview }) => {
 
     let timeObj = {}
     timeObj.userTime = userTime ? userTime : new Date(); //new Date('2020-08-11T23:59:00') // local machine time
-
     
     if (isBefore(timeObj.userTime, day1)) {
       console.log('It hasnt started YET!')
@@ -179,7 +186,7 @@ const Index = ({ data, preview }) => {
 
 
         </main>
-        <PostModal onToggleModal={toggleModal} />
+        <PostModal onCloseModal={closeModal} isOpen={modalIsOpen} data={postData} />
         
         <div className="timeInput">
           <form onSubmit={onHandleInputSubmit}>
@@ -187,7 +194,7 @@ const Index = ({ data, preview }) => {
             <input type="submit" value="Submit" />
           </form>
           <p>2020-08-09T00:00:00</p>
-          <p>2020-08-10T00:00:00</p>
+          <p>2020-08-10T12:30:00</p>
           <p>2020-08-11T00:00:00</p>
           <p>2020-08-12T00:00:00</p>
         </div>

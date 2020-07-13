@@ -55,7 +55,7 @@ export async function getSiteOptions(preview) {
 
 export async function getEvents(preview) {
   const results = await getClient(preview)
-    .fetch(`* [_type == "event"]{
+    .fetch(`* [_type == "event"] | order(startTime asc) {
       _id,
       title,
       category,

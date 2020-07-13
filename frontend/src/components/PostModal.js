@@ -1,104 +1,140 @@
 
 import React, { useEffect, useState, useRef } from 'react'
+import BlockContent from '@sanity/block-content-to-react'
 import gsap from 'gsap'
 import styles from '@styles/modules/PostModal.module.scss'
 
-const Contact = ({ onToggleModal }) => {
+const PostModal = ({ data, isOpen, onCloseModal }) => {
 
   const [isActive, setIsActive] = useState(false)
-  const contactNode = useRef(null)
-  const articleNode = useRef(null)
+  const modalNode = useRef(null)
+
+  useEffect(() => {
+    if (isOpen) {
+      console.log('OPEN: ', data.title)
+      gsap.set(modalNode.current, { display: 'block'  })
+      // onOpen()
+
+    } else {
+      console.log('Close');
+      gsap.set(modalNode.current, { display: 'none' })
+      // onCloseModal()
+      // onClose()
+    }
+  }, [isOpen]);
+
+  // useEffect(() => {
+  //   console.log('data changed: ', data);
+    
+  //   if (data !== undefined && data.title !== '') {
+  //     console.log('modal data: ', data.title);
+  //     // setIsActive(true)
+  //     onToggle()
+      
+  //   } else {
+  //     console.log('NO modal data');
+  //     if (isActive) {
+  //       setIsActive(false)
+  //     }
+  //   }
+
+  // }, [data]);
 
   useEffect( () => {
-    gsap.set(articleNode.current, {display: 'none', opacity: 0})
+    if (isActive) {
+      gsap.set(modalNode.current, { display: 'block'  })
+    }
+
+    // console.log('DATA POST: ', data);
   }, [])
 
-  const onToggle = () => {
-    if (isActive) {
-      onClose()
-    } else {
-      onOpen()
-    }
-  }
+  
+  
+
+  // const onToggle = () => {
+  //   if (isActive) {
+  //     onClose()
+  //   } else {
+  //     onOpen()
+  //   }
+  // }
+// componentDidUpdate(prevProps) {
+
+// }
 
   const onOpen = () => {
 
-    gsap.to(contactNode.current, {
-      duration: 0.6,
-      ease: 'quart.inOut',
-      width: 'calc(100% - 1.4rem)',
-    })
+    // gsap.to(contactNode.current, {
+    //   duration: 0.6,
+    //   ease: 'quart.inOut',
+    //   width: 'calc(100% - 1.4rem)',
+    // })
 
-    gsap.set(articleNode.current, { display: 'block' })
-    gsap.to(articleNode.current, {
-      duration: 0.3,
-      delay: 0.6,
-      opacity: 1,
-    })
+    // gsap.set(modalNode.current, { display: 'block' })
+    // gsap.to(modalNode.current, {
+    //   duration: 0.3,
+    //   delay: 0.6,
+    //   opacity: 1,
+    // })
 
-    onToggleModal()
+    
+
+    gsap.set(modalNode.current, { display: 'block' })
+
+    // onToggleModal()
     setIsActive(true)
   }
 
   const onClose = () => {
 
-    gsap.to(articleNode.current, {
-      duration: 0.3,
-      opacity: 0,
-      onComplete: () => {
-        gsap.set(articleNode.current, { display: 'none' })
-      }
-    })
+    // gsap.to(modalNode.current, {
+    //   duration: 0.3,
+    //   opacity: 0,
+    //   onComplete: () => {
+    //     gsap.set(modalNode.current, { display: 'none' })
+    //   }
+    // })
 
-    gsap.to(contactNode.current, {
-      duration: 0.6,
-      ease: 'quart.inOut',
-      width: '1.4rem',
-    })
+    // gsap.to(contactNode.current, {
+    //   duration: 0.6,
+    //   ease: 'quart.inOut',
+    //   width: '1.4rem',
+    // })
 
+
+    gsap.set(modalNode.current, { display: 'none' })
     
-
-    onToggleModal()
+    onCloseModal()
     setIsActive(false)
   }
 
-  const ctaText = isActive ? 'Go back / Fonts' : 'About / Contact'
+  // const ctaText = isActive ? 'Go back / Fonts' : 'About / Contact'
   
   return (
     <>
-      <div className={styles.contact} ref={contactNode}>
-        <div className={styles.sidebar} onClick={onToggle} >
-          <div className={styles.cta}>
-            <p className={styles.link}>{ctaText}</p>
+
+      <div className={styles.modal} ref={modalNode}>
+        <div className={styles.background}></div>
+
+        <div className={styles.content}>
+
+          <div className={styles.close} onClick={onClose}>Close</div>
+
+          <div className={styles.article}>
+
+            {data &&
+            <>
+              <p className={styles.date}>{data.releaseDate}</p>
+              <h1 className={styles.title}>{data.title}</h1>
+              <BlockContent blocks={data.text} className={styles.p}/>
+            </>
+            }
+            
           </div>
         </div>
       </div>
-      
-      <div className={styles.article} ref={articleNode}>
-        <p>Hello,</p>
-
-        <p>
-          Here is Clara, a French type designer based in Copenhagen, Denmark.
-          After spending the last 5 years between Playtype/e-Types and Kontrapunkt, I am now setting up shop.
-          I design retail typefaces and as well as custom productions for specific clients. Concept, design, glyph finalisation, spacing, kerning, opentype features, variable fonts and delivering files hold no secrets for me. I work together with design agencies, marketing departments or smaller units, always hand-in-hand, to create unique and timeless typefaces. 
-        </p>
-        <p>
-          I have worked on projects for clients such as Maersk, Nissan, Shiseido, The Index Project, Tuborg, Vero Moda, Air Canada, Danish Crown, MobilePay, Vipp, Datsun, Novo Nordisk, FC København, UPS, EKF, alongside the great teams of Playtype, e-Types and Kontrapunkt.
-        </p>
-        <p>
-          If you feel like reaching out or grab a coffee, please do:
-          <a href="mailto:hello@clarajullienisaksson.com"></a> 
-          <a href="" target="_blank">LinkedIn</a> 
-        </p>
-
-        <p>Hi, I'm Clara Jullien Isaksson,</p>
-        <p>French type designer based in Copenhagen, Denmark.</p>
-        <p>Having worked at Playtype / e-Types and Kontrapunkt over the last five years, I worked on retail fonts, as well as custom productions for specific clients. Concept, design, glyph polishing, spacing, kerning, opentype features, variable fonts and delivery</p>
-        <p>Contact me via <a href="">LinkedIn</a></p>
-      </div>
-
     </>
   )
 }
 
-export default Contact
+export default PostModal
