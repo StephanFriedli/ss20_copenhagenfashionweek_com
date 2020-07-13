@@ -2,7 +2,7 @@
 
 .modal {
 	display: none;
-	
+
 	.background {
 		position: fixed;
 		top: 0;
@@ -17,17 +17,32 @@
 		top: 60px;
 		left: 40px;
 		width: 70%;
-
-		padding: 80px;
+		padding: 60px 0 0;
+		
 		background-color: #fff;
 
 
 		.close {
-			@include font-sm;
-			padding: 10px 0;
-			cursor: pointer;
 			display: inline-block;
+			padding: 10px 0 10px 40px;
+			cursor: pointer;
+			@include font-sm;
 		}
+
+		.media {
+				width: calc(100% - 80px);
+				margin-bottom: 60px;
+				padding-left: 40px;
+				padding-right: 40px;
+
+				.imageContainer {
+					img {
+						width: 100%;
+						height: auto;
+					}
+				}
+				.galleryContainer {}
+			}
 
 		.article {
 			// min-height: 101vh;
@@ -35,6 +50,8 @@
 			max-width: 660px;
 			text-align: center;
 			margin: 0 auto;
+			padding-left: 40px;
+			padding-right: 40px;
 
 			.date {
 				@include font-sm;
@@ -57,7 +74,7 @@
 			.p {
 				@include font-md;
 				line-height: 1.1em;
-				margin-bottom: 1em;
+				margin-bottom: 40px;
 
 				a {
 					text-decoration: none;
@@ -66,6 +83,21 @@
 						text-decoration: underline;
 					}
 				}
+			}
+		}
+
+		.line {
+			@include line;
+		}
+
+		.nextPost {
+			text-align: left;
+			padding: 20px;
+			.label {
+				@include font-sm;
+			}
+			.title {
+				@include heading-md;
 			}
 		}
 	}

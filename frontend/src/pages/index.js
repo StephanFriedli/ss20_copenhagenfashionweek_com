@@ -244,7 +244,10 @@ export async function getStaticProps({ preview = false, previewData }) {
     posts: postData,
     brands: brandData,
     ads: adData,
-    footer: {},
+    footer: {
+      partners: siteData.partners,
+      socialMedia: siteData.socialMedia,
+    },
   }
   return {
     props: { data, preview },

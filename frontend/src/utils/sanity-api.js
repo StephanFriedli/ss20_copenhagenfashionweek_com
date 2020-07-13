@@ -48,6 +48,8 @@ export async function getSiteOptions(preview) {
         'description': seo.seoDescription,
         'imageUrl': seo.seoImage.asset->url,
       },
+      partners,
+      socialMedia
     }`)  
       
   return results[0]

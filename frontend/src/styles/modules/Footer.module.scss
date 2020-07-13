@@ -1,12 +1,43 @@
-// @import '@styles/fluid-font';
+@import '@styles/variables';
 
 
 .footer {
   margin-top: 4rem;
   margin-bottom: 2rem;
 
-  h3 {
+  .label {
+    @include font-sm;
+    margin-bottom: 10px;
+  }
+  .line {
+    @include line;
+  }
+
+  .partnerList {
     text-align: center;
-    // font-weight: 12px;
-  } 
+    margin-bottom: 60px;
+    .partner {
+      display: inline-block;
+      vertical-align: top;
+      text-decoration: none;
+      margin: 0 10px;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+  .socialMedia {
+    text-align: center;
+    margin-bottom: 60px;
+
+    .link {
+      text-decoration: none;
+      @include font-md;
+      margin: 0 40px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }

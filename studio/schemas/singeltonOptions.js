@@ -198,7 +198,33 @@ export default {
               name: 'link',
               title: 'Link',
               type: 'string',
-              description: 'Open this link when user clicks on ad'
+              description: 'Open this link when user clicks on logo'
+            },
+          ]
+        }
+      ]
+    },
+
+    {
+      name: 'socialMedia',
+      title: 'Social Media Links',
+      type: 'array',
+      description: 'Links to social media, shown in footer',
+      of: [
+        {
+          name: 'links',
+          type: 'object',
+          fields: [
+            {
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+            },
+            {
+              name: 'link',
+              title: 'Link',
+              type: 'url',
+              description: 'Link to social media'
             },
           ]
         }
