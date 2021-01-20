@@ -14,7 +14,7 @@
     "classnames": "2.2.6",
     "date-fns": "^2.10.0",
     "flickity": "^2.2.1",
-    "gsap": "^3.2.6",
+    "gsap": "^3.6.0",
     "next": "latest",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
